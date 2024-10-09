@@ -14,11 +14,17 @@ function Journal() {
             <span class="reason">Motif:</span>
             <span id="date">À: </span>
             <p>This is my issue</p>
-            <button class="edit">Modifier</button>
+            <a href="http://localhost:5173/Entry">
+              <button class="edit">Modifier</button>
+            </a>
         </div>
       </div>
 
-      <button class="add">+</button>
+      <a href="http://localhost:5173/Entry">
+        <button class="add">+
+        </button>
+      </a>
+
 
       </div>
   );

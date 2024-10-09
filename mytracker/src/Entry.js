@@ -114,7 +114,7 @@ function Entry() {
 
         <span id='ligne4'>
             
-            <label class="">Apportez des précisions 
+            <label class="category">Apportez des précisions 
                 <input type='textarea'></input>
             </label>
             

@@ -8,7 +8,7 @@ body{
 
     background-color: #FFFFFF;
     width: 70%;
-    height: 750px;
+    height: 950px;
     margin-top: 5%;
     margin-left: 15%;
     margin-left: 15%;
@@ -126,4 +126,28 @@ input[type="radio"].intensity-radio {
 
 input[type="radio"].intensity-radio:checked + label .color-box {
     border: 3px solid black;
+}
+
+input[type="textarea"]{
+
+    display: block;
+    margin-top: 10px;
+    width: 80%;
+    height: 100px;
+
+
+}
+
+#ligne5{
+    width: 100%;
+    float: center;
+    
+
+}
+
+input[type="submit"]{
+
+
+    float: center;
+
 }

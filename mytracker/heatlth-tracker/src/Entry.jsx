@@ -29,58 +29,58 @@ function Entry() {
             <label class="category">Motif</label>
 
                 <label> 
-                <input type="radio" name="maladie" value="douleur"></input>
+                <input type="checkbox" name="maladie" value="douleur"></input>
                 Douleur
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="nausee"></input>
+                <input type="checkbox" name="maladie" value="nausee"></input>
                 Nausée
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="sneeze"></input>
+                <input type="checkbox" name="maladie" value="sneeze"></input>
                 Éternuements
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="toux"></input>
+                <input type="checkbox" name="maladie" value="toux"></input>
                 Toux
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="sang"></input>
+                <input type="checkbox" name="maladie" value="sang"></input>
                 Saignement
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="fracture"></input>
+                <input type="checkbox" name="maladie" value="fracture"></input>
                 Fracture
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="entorse"></input>
+                <input type="checkbox" name="maladie" value="entorse"></input>
                 Entorse
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="burn"></input>
+                <input type="checkbox" name="maladie" value="burn"></input>
                 Brûlure
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="infect"></input>
+                <input type="checkbox" name="maladie" value="infect"></input>
                 Infection
                 </label>
 
                 <label> 
-                <input type="radio" name="maladie" value="lesion"></input>
+                <input type="checkbox" name="maladie" value="lesion"></input>
                 Lésion
                 </label>
 
 
                 <label> 
-                <input type="radio" name="maladie" value="cut"></input>
+                <input type="checkbox" name="maladie" value="cut"></input>
                 Coupure
                 </label>
                 
@@ -90,32 +90,36 @@ function Entry() {
 
             <label class="category">Intensité</label>
             
+            <label class="couleur">Rouge</label>
             <input type="radio" id="intensity4" name="intensity" value="4" class="intensity-radio"></input>
         <label for="intensity4">
             <div class="color-box red"></div>
         </label>
 
+        <label class="couleur">Orange</label>
         <input type="radio" id="intensity3" name="intensity" value="3"  class="intensity-radio"></input>
         <label for="intensity3">
             <div class="color-box orange"></div>
         </label>
 
+        <label class="couleur">Jaune</label>
         <input type="radio" id="intensity2" name="intensity" value="2" class="intensity-radio"></input>
         <label for="intensity2">
             <div class="color-box yellow"></div>
         </label>
-
+        <label class="couleur">Vert</label>
         <input type="radio" id="intensity1" name="intensity" value="1" class="intensity-radio"></input>
         <label for="intensity1">
             <div class="color-box green"></div>
         </label>
+        
 
         </span>
 
         <span id='ligne4'>
             
-            <label class="">Apportez des précisions 
-                <input type='textarea'></input>
+            <label class="category">Apportez des précisions 
+                <textarea></textarea>
             </label>
             
 
@@ -123,7 +127,7 @@ function Entry() {
         </span>
 
         <span id='ligne5'>
-        <input type='submit' class="send"></input>
+        <input type='submit' className="send"></input>
         </span>
 
         </form>
