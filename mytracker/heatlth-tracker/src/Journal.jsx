@@ -1,32 +1,58 @@
+import React, { useEffect, useState } from 'react';
 import './Journal.css';
 
 function Journal() {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8081/entries')
+      .then((response) => response.json())
+      .then((data) => {
+        setEntries(data);
+      })
+      .catch((error) => console.error('Error fetching entries:', error));
+  }, []);
+
+  const getIntensityColor = (intensity) => {
+    const colors = ['#00FF00', '#FFFF00', '#FFA500', '#FF0000'];
+    return colors[intensity - 1] || '#FFFFFF';
+  };
+
   return (
     <div className="Journal">
       <header className="App-header">
-      <img src="Health tra.png" id="logo"/>
+        <img src="Health tra.png" id="logo" alt="logo" />
       </header>
-      <h1 class="page_title">Journal</h1>
-      <div  id="tracker">
-        <div class="entry">
-            <h2>Placeholder</h2>
-            <img class="intensity" alt="intensity"/>
-            <span class="reason">Motif:</span>
-            <span id="date">À: </span>
-            <p>This is my issue</p>
-            <a href="http://localhost:5173/Entry">
-              <button class="edit">Modifier</button>
-            </a>
-        </div>
+      <h1 className="page_title">Journal</h1>
+      <div id="tracker">
+        {entries.length > 0 ? (
+          entries.map((entry) => (
+            <div 
+              key={entry.ID} 
+              className="entry" 
+              style={{ backgroundColor: getIntensityColor(entry.INTENSITÉ) }}
+            >
+              <h2>Entrée #{entry.ID}</h2>
+              <img className="intensity" alt="intensity" />
+              <span className="reason">Motifs: {entry.motifs || 'Aucun motif'}</span>
+              <span id="date">À: {entry.DATE}</span>
+              <p>{entry.PRÉCISIONS || 'Aucune précision'}</p>
+              <a href={`http://localhost:5173/Entry/${entry.ID}`}>
+                <button className="edit">Modifier</button>
+              </a>
+            </div>
+          ))
+        ) : (
+          <div className="entry">
+            <h2>Aucune entrée trouvée</h2>
+          </div>
+        )}
       </div>
 
       <a href="http://localhost:5173/Entry">
-        <button class="add">+
-        </button>
+        <button className="add">+</button>
       </a>
-
-
-      </div>
+    </div>
   );
 }
 

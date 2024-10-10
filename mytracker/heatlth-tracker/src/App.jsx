@@ -1,24 +1,32 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 import Journal from './Journal';
 import Entry from './Entry';
-import { Link, Route, BrowserRouter, Routes } from "react-router-dom";
+import LoginCLI from './Login/LoginCLI';
+import LoginMED from './Login/LoginMED';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mydata, setData] = useState([]);
+  
   useEffect(() => {
-    fetch('http://localhost:8081/Formulaire')
-    .then(res => res.json())
-    .then(data => setData(data))
-    .catch(err => console.log(err));
+    fetch('http://localhost:8081/')
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(err => console.log(err));
   }, []);
+
   return (
     <BrowserRouter>
-    <Routes>
-      <Route exact path="/Journal" element={<Journal />} />
-      <Route path="/Entry" element={<Entry />} />
-    </Routes>
-  </BrowserRouter>
+      <Routes>
+        <Route path="/Login_MED" element={<LoginMED />} />
+        <Route path="/Login_CLI" element={<LoginCLI />} />
+        <Route path="/Journal" element={<Journal />} />
+        <Route path="/Entry" element={<Entry />} />
+        <Route path="/Entry/:id" element={<Entry />} /> {/* Route for editing an entry */}
+      </Routes>
+    </BrowserRouter>
   );
 }
-export default App
+
+export default App;

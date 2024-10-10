@@ -1,141 +1,321 @@
-import './Entry.css';
+// import React, { useState, useEffect } from 'react';
+// import './Entry.css';
 
+// function Entry() {
+//     const [bodyParts, setBodyParts] = useState([]);
+//     const [selectedPart, setSelectedPart] = useState('');
+//     const [motifs, setMotifs] = useState([]);
+//     const [intensity, setIntensity] = useState(1);
+//     const [date, setDate] = useState('');
+//     const [precisions, setPrecisions] = useState('');
+//     const [selectedMotifs, setSelectedMotifs] = useState([]);
+
+//   useEffect(() => {
+//     fetch('http://localhost:8081/bodyPartsAndMotifs')
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setBodyParts(data);
+//       })
+//       .catch((error) => console.error('Error fetching body parts and motifs:', error));
+//   }, []);
+
+//   const handleBodyPartChange = (e) => {
+//     const partId = e.target.value;
+//     setSelectedPart(partId);
+
+//     const selectedBodyPart = bodyParts[partId - 1];
+//     setMotifs(selectedBodyPart ? selectedBodyPart.motifs : []);
+//   };
+
+//   const handleIntensityChange = (e) => {
+//     setIntensity(e.target.value);
+//   };
+
+//   const getSliderBackgroundColor = (value) => {
+//     const colors = ['blue', 'green', 'yellow', 'orange', 'red'];
+//     const leftColor = colors[value - 1];
+//     const rightColor = colors[value];
+
+//     return `linear-gradient(to right, ${leftColor}, ${rightColor})`;
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault(); // Prevent the default form submission
+
+//     const selectedMotifs = motifs
+//       .filter((motif) => document.querySelector(`input[name="motif"][value="${motif.motif}"]`).checked)
+//       .map((motif) => motif.motif);
+
+//     const entryData = {
+//       date: document.querySelector('input[type="date"]').value,
+//       intensity,
+//       additionalNotes: document.querySelector('textarea').value,
+//       selectedMotifs
+//     };
+
+//     fetch('http://localhost:8081/submitEntry', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(entryData),
+//     })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+//       // Optionally reset form or show a success message
+//     })
+//     .catch((error) => console.error('Error submitting entry:', error));
+//   };
+
+//   return (
+//     <div className="Entry">
+//       <header className="App-header">
+//         <img src="Health tra.png" id="logo" alt="logo" />
+//       </header>
+    
+//       <div className="ill">
+//         <form onSubmit={handleSubmit}>
+//           <span id="ligne1">
+//             <label className="category">Partie du corps</label>
+//             <select 
+//               value={selectedPart} 
+//               onChange={handleBodyPartChange}
+//             >
+//               <option value="">Sélectionnez une partie du corps</option>
+//               {bodyParts.map((part) => (
+//                 <option key={part.id} value={part.id}>
+//                   {part.part}
+//                 </option>
+//               ))}
+//             </select>
+                
+//             <label className="category date">Date
+//               <input type="date" />
+//             </label>
+//           </span>
+
+//           <span id="ligne2">
+//             <label className="category">Motifs</label>
+//             {motifs.length > 0 ? (
+//               motifs.map((motif) => (
+//                 <label key={motif.id}>
+//                   <input type="checkbox" name="motif" value={motif.motif} />
+//                   {motif.motif}
+//                 </label>
+//               ))
+//             ) : (
+//               <p>Aucun motif disponible pour cette partie du corps.</p>
+//             )}
+//           </span>
+//           <span id="ligne3">
+//             <label className="category">Intensité</label>
+//             <input
+//               type="range"
+//               min="1"
+//               max="5"
+//               value={intensity}
+//               onChange={handleIntensityChange}
+//               style={{ 
+//                 background: getSliderBackgroundColor(intensity)
+//               }}
+//             />
+//             <span>{intensity != 0 ? (intensity - 1) * 25 : intensity}%</span>
+//           </span>
+//           <span id="ligne4">
+//             <label className="category">Apportez des précisions
+//               <textarea></textarea>
+//             </label>
+//           </span>
+
+//           <span id="ligne5">
+//             <input type="submit" className="send" />
+//           </span>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Entry;
+
+import React, { useState, useEffect } from 'react';
+import './Entry.css';
+import {useNavigate, useParams} from 'react-router-dom';
 function Entry() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [bodyParts, setBodyParts] = useState([]);
+  const [selectedPart, setSelectedPart] = useState('');
+  const [motifs, setMotifs] = useState([]);
+  const [intensity, setIntensity] = useState(1);
+  const [date, setDate] = useState('');
+  const [precisions, setPrecisions] = useState('');
+  const [selectedMotifs, setSelectedMotifs] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8081/bodyPartsAndMotifs')
+      .then((response) => response.json())
+      .then((data) => {
+        setBodyParts(data);
+      })
+      .catch((error) => console.error('Error fetching body parts and motifs:', error));
+  
+    if (id) {
+        fetch(`http://localhost:8081/entries/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setDate(data.DATE);
+            setIntensity(data.INTENSITÉ);
+            setPrecisions(data.PRÉCISIONS);
+            setSelectedPart(data.PART_ID);
+            setSelectedMotifs(data.motifs.split(','));
+            console.log(data);
+        })
+        .catch((error) => console.error('Error fetching entry data:', error));
+    }
+  }, [id]);
+
+  const handleBodyPartChange = (e) => {
+    const partId = e.target.value;
+    setSelectedPart(partId);
+
+    const selectedBodyPart = bodyParts.find(part => part.id === parseInt(partId));
+    setMotifs(selectedBodyPart ? selectedBodyPart.motifs : []);
+  };
+
+  const handleIntensityChange = (e) => {
+    setIntensity(e.target.value);
+  };
+
+  const handleMotifChange = (e) => {
+    const { value, checked } = e.target;
+    setSelectedMotifs(prev => 
+      checked ? [...prev, value] : prev.filter(motif => motif !== value)
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const entryData = {
+      date,
+      intensity,
+      precisions,
+      motifs: selectedMotifs,
+    };
+
+    const method = id ? 'PUT' : 'POST';
+    const test = id ? `http://localhost:8081/entries/${id}` : 'http://localhost:8081/submitEntry';
+
+    fetch(test, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(entryData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Success:', data);
+        navigate('/Journal');
+      })
+      .catch((error) => console.error('Error saving entry:', error));
+  };
+
+  const getSliderBackgroundColor = (value) => {
+    const colors = ['blue', 'green', 'yellow', 'orange', 'red'];
+    const leftColor = colors[value - 1];
+    const rightColor = colors[value];
+    return `linear-gradient(to right, ${leftColor}, ${rightColor})`;
+  };
+
   return (
     <div className="Entry">
       <header className="App-header">
-      <img src="Health tra.png" id="logo"/>
+        <img src="Health tra.png" id="logo" alt="logo" />
       </header>
     
-    <div class="ill">
-
-        <form>
-
-        <span id='ligne1'>    
-
-            <label class="category">Titre de l'entrée
-                <input type="text"></input>
-            </label>
+      <div className="ill">
+        <form onSubmit={handleSubmit}>
+          <span id="ligne1">
+            <label className="category">Partie du corps</label>
+            <select 
+              value={selectedPart} 
+              onChange={handleBodyPartChange}
+            >
+              <option value="">Sélectionnez une partie du corps</option>
+              {bodyParts.map((part) => (
+                <option key={part.id} value={part.id}>
+                  {part.part}
+                </option>
+              ))}
+            </select>
                 
-
-            <label class="category date" >Date
-                <input type="date" ></input>
+            <label className="category date">Date
+              <input 
+                type="date" 
+                value={date} 
+                onChange={(e) => setDate(e.target.value)} 
+              />
             </label>
+          </span>
 
-        </span>
-
-        <span id='ligne2'>
-
-            <label class="category">Motif</label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="douleur"></input>
-                Douleur
+          <span id="ligne2">
+            <label className="category">Motifs</label>
+            {motifs.length > 0 ? (
+              motifs.map((motif) => (
+                <label key={motif.id}>
+                  <input 
+                    type="checkbox" 
+                    name="motif" 
+                    value={motif.motif} 
+                    checked={selectedMotifs.includes(motif.motif)} 
+                    onChange={handleMotifChange} 
+                  />
+                  {motif.motif}
                 </label>
+              ))
+            ) : (
+              <p>Aucun motif disponible pour cette partie du corps.</p>
+            )}
+          </span>
+          
+          <span id="ligne3">
+            <label className="category">Intensité</label>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              value={intensity}
+              onChange={handleIntensityChange}
+              style={{ 
+                background: getSliderBackgroundColor(intensity)
+              }}
+            />
+            <span>{intensity != 0 ? (intensity - 1) * 25 : intensity}%</span>
+          </span>
 
-                <label> 
-                <input type="checkbox" name="maladie" value="nausee"></input>
-                Nausée
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="sneeze"></input>
-                Éternuements
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="toux"></input>
-                Toux
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="sang"></input>
-                Saignement
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="fracture"></input>
-                Fracture
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="entorse"></input>
-                Entorse
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="burn"></input>
-                Brûlure
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="infect"></input>
-                Infection
-                </label>
-
-                <label> 
-                <input type="checkbox" name="maladie" value="lesion"></input>
-                Lésion
-                </label>
-
-
-                <label> 
-                <input type="checkbox" name="maladie" value="cut"></input>
-                Coupure
-                </label>
-                
-        </span>
-
-        <span id='ligne3'>
-
-            <label class="category">Intensité</label>
-            
-            <label class="couleur">Rouge</label>
-            <input type="radio" id="intensity4" name="intensity" value="4" class="intensity-radio"></input>
-        <label for="intensity4">
-            <div class="color-box red"></div>
-        </label>
-
-        <label class="couleur">Orange</label>
-        <input type="radio" id="intensity3" name="intensity" value="3"  class="intensity-radio"></input>
-        <label for="intensity3">
-            <div class="color-box orange"></div>
-        </label>
-
-        <label class="couleur">Jaune</label>
-        <input type="radio" id="intensity2" name="intensity" value="2" class="intensity-radio"></input>
-        <label for="intensity2">
-            <div class="color-box yellow"></div>
-        </label>
-        <label class="couleur">Vert</label>
-        <input type="radio" id="intensity1" name="intensity" value="1" class="intensity-radio"></input>
-        <label for="intensity1">
-            <div class="color-box green"></div>
-        </label>
-        
-
-        </span>
-
-        <span id='ligne4'>
-            
-            <label class="category">Apportez des précisions 
-                <textarea></textarea>
+          <span id="ligne4">
+            <label className="category">Apportez des précisions
+              <textarea 
+                value={precisions} 
+                onChange={(e) => setPrecisions(e.target.value)}
+              ></textarea>
             </label>
-            
+          </span>
 
-
-        </span>
-
-        <span id='ligne5'>
-        <input type='submit' className="send"></input>
-        </span>
-
+          <span id="ligne5">
+            <input type='submit' className="send" />
+          </span>
         </form>
-
-    </div>
-
+      </div>
     </div>
   );
 }
-
 export default Entry;
