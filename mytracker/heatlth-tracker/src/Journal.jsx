@@ -19,10 +19,13 @@ function Journal() {
   };
 
   return (
-    <div className="Journal">
-      <header className="App-header">
+    <html>
+    <body>  
+    <header className="App-header">
         <img src="Health tra.png" id="logo" alt="logo" />
       </header>
+    <div className="Journal">
+      
       <h1 className="page_title">Journal</h1>
       <div id="tracker">
         {entries.length > 0 ? (
@@ -33,7 +36,6 @@ function Journal() {
               style={{ backgroundColor: getIntensityColor(entry.INTENSITÉ) }}
             >
               <h2>Entrée #{entry.ID}</h2>
-              <img className="intensity" alt="intensity" />
               <span className="reason">Motifs: {entry.motifs || 'Aucun motif'}</span>
               <span id="date">À: {entry.DATE}</span>
               <p>{entry.PRÉCISIONS || 'Aucune précision'}</p>
@@ -41,7 +43,7 @@ function Journal() {
                 <button className="edit">Modifier</button>
               </a>
             </div>
-          ))
+                      ))
         ) : (
           <div className="entry">
             <h2>Aucune entrée trouvée</h2>
@@ -53,6 +55,8 @@ function Journal() {
         <button className="add">+</button>
       </a>
     </div>
+    </body>
+    </html>
   );
 }
 

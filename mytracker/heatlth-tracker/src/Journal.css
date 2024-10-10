@@ -2,12 +2,18 @@
 
     background-color: #E9E9ED;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: block;
+    overflow-y: auto
   
   }
   
   
   .Journal {
     text-align: center;
+    max-width: 100%;
+    display: block;
+    
+    
     
   }
   
@@ -32,7 +38,14 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    width: 100%;
     
+  }
+
+  header{
+
+    width: 100%;
+
   }
   
   #logo {
@@ -68,10 +81,13 @@
     border-radius: 5px;
     border: #686B6E;
     background-color: #FFFFFF;
-    width: 70%;
-    display: flex;
+    max-width: 70%;
+    
     margin-left:15%;
-    margin-right: 15%; 
+    margin-right: 15%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Automatically adjust the number of columns */
+    gap: 20px; 
   
   }
   
@@ -80,8 +96,10 @@
     border-radius: 7px;
     box-shadow: #686B6E;
     box-shadow: 2px;
+    min-width: 250px;
     width: 100%;
     height: 300px;
+    font-size: 110%;
   
   }
   
@@ -115,6 +133,9 @@
   .add{
   
   
+  position: fixed;  /* Makes the button stick to the screen */
+  bottom: 20px;     /* Distance from the bottom of the screen */
+  right: 20px; 
   margin-top: 10%;
   border-radius: 50%;
   float: right;
@@ -124,7 +145,14 @@
   color: white;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
+  font-size: 115%;
   
   
   }
+
+  .add:hover {
+    background-color: #058789;  
+    width: 50px;
+    height: 50px;
+    font-size: 130%;
+}
