@@ -86,7 +86,7 @@
     margin-left:15%;
     margin-right: 15%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Automatically adjust the number of columns */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
     gap: 20px; 
   
   }
@@ -133,8 +133,8 @@
   .add{
   
   
-  position: fixed;  /* Makes the button stick to the screen */
-  bottom: 20px;     /* Distance from the bottom of the screen */
+  position: fixed;  
+  bottom: 20px;     
   right: 20px; 
   margin-top: 10%;
   border-radius: 50%;
