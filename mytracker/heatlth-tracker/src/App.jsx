@@ -23,7 +23,7 @@ function App() {
         <Route path="/Login_CLI" element={<LoginCLI />} />
         <Route path="/Journal" element={<Journal />} />
         <Route path="/Entry" element={<Entry />} />
-        <Route path="/Entry/:id" element={<Entry />} /> {/* Route for editing an entry */}
+        <Route path="/Entry/:id" element={<Entry />} /> 
       </Routes>
     </BrowserRouter>
   );
