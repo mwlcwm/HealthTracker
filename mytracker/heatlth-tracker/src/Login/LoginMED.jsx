@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Journal from '../Journal';
-import Entry from '../Entry';
 
 function LoginMED() {
     const navigate = useNavigate();

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Journal.css';
 
+// Handling the display of the several entries getting them from db
 function Journal() {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8081/entries')
+    fetch('http://localhost:8081/entries') // Get entries
       .then((response) => response.json())
       .then((data) => {
         setEntries(data);
@@ -32,14 +33,14 @@ function Journal() {
           entries.map((entry) => (
             <div 
               key={entry.ID} 
-              className="entry" 
-              style={{ backgroundColor: getIntensityColor(entry.INTENSITÉ) }}
+              className="entry"
+              style={{ backgroundColor: getIntensityColor(entry.INTENSITÉ) }} // Set intensity colors for the entries
             >
               <h2>Entrée #{entry.ID}</h2>
               <span className="reason">Motifs: {entry.motifs || 'Aucun motif'}</span>
               <span id="date">À: {entry.DATE}</span>
               <p>{entry.PRÉCISIONS || 'Aucune précision'}</p>
-              <a href={`http://localhost:5173/Entry/${entry.ID}`}>
+              <a href={`http://localhost:5173/Entry/${entry.ID}`}>  {/*When clicking on entries, redirecting user to the entry with its ID*/}
                 <button className="edit">Modifier</button>
               </a>
             </div>
