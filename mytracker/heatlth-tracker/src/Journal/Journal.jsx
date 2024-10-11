@@ -27,7 +27,7 @@ function Journal() {
       </header>
     <div className="Journal">
       
-      <h1 className="page_title">Journal</h1>
+      <h1 className="page_title"></h1>
       <div id="tracker">
         {entries.length > 0 ? (
           entries.map((entry) => (
@@ -38,7 +38,7 @@ function Journal() {
             >
               <h2>Entrée #{entry.ID}</h2>
               <span className="reason">Motifs: {entry.motifs || 'Aucun motif'}</span>
-              <span id="date">À: {entry.DATE}</span>
+              <span id="date">Le: {entry.DATE}</span>
               <p>{entry.PRÉCISIONS || 'Aucune précision'}</p>
               <a href={`http://localhost:5173/Entry/${entry.ID}`}>  {/*When clicking on entries, redirecting user to the entry with its ID*/}
                 <button className="edit">Modifier</button>

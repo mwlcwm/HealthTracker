@@ -5,7 +5,7 @@ import changeHandling, { variables } from './changeHandling';
 function Entry() {
   const { id } = useParams();
   const {navigate, bodyParts, setBodyParts, selectedPart, setSelectedPart,
-    motifs, setMotis, intensity, setIntensity, date, setDate, precisions,
+    motifs, setMotifs, intensity, setIntensity, date, setDate, precisions,
     setPrecisions, selectedMotifs, setSelectedMotifs} = variables(id);
   useEffect(() => {
     fetch('http://localhost:8081/bodyPartsAndMotifs')
@@ -31,7 +31,7 @@ function Entry() {
     }
   }, [id]);
   const handleBodyPartChange = (e) => {
-    changeHandling.handleBodyPartChange(e, setSelectedPart, bodyParts, setMotis);
+    changeHandling.handleBodyPartChange(e, setSelectedPart, bodyParts, setMotifs);
   };
 
   const handleIntensityChange = (e) => {

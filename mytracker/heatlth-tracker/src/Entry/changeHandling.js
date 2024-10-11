@@ -12,7 +12,7 @@ export const variables = (id) => {
     const [selectedMotifs, setSelectedMotifs] = useState([]);
     return {
         navigate, bodyParts, setBodyParts, selectedPart, setSelectedPart,
-        motifs, setMotis, intensity, setIntensity, date, setDate, precisions,
+        motifs, setMotifs, intensity, setIntensity, date, setDate, precisions,
         setPrecisions, selectedMotifs, setSelectedMotifs
     };
 }
